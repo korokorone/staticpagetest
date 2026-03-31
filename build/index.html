@@ -3,4 +3,45 @@
   <body>
     <h1>Teams 테스트 성공</h1>
   </body>
-</html>
+</html<script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js"></script>
+
+<script>
+async function init() {
+  await microsoftTeams.app.initialize();
+
+  // 🔥 SSO 토큰 받기
+  const token = await microsoftTeams.authentication.getAuthToken();
+
+  // // 서버로 전달
+  // const res = await fetch("/api/user/subscriptions", {
+  //   headers: {
+  //     "Authorization": "Bearer " + token
+  //   }
+  // });
+
+  // const data = await res.json();
+
+  render2(token);
+}
+
+function render(data) {
+  // 예: PAYMENT 구독 여부 반영
+  document.querySelectorAll("[data-system]").forEach(el => {
+    const system = el.dataset.system;
+    const btn = el.querySelector("button");
+
+    if (data.includes(system)) {
+      btn.innerText = "구독 취소";
+      btn.classList.add("subscribed");
+    } else {
+      btn.innerText = "구독";
+      btn.classList.remove("subscribed");
+    }
+  });
+}
+  
+finction render2(data){
+  console.log(data)
+}
+init();
+</script>
